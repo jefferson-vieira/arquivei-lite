@@ -1,14 +1,5 @@
-import Head from 'next/head';
+import Layout from '../components/layout';
 
-const Index: React.FC = () => (
-  <div>
-    <Head>
-      <title>Arquivei Lite</title>
-    </Head>
-    <main>
-      <h1>Hello, World!</h1>
-    </main>
-  </div>
-);
+const Index: React.FC = () => <Layout>Hello, World!</Layout>;
 
 export default Index;

@@ -12,7 +12,7 @@ export default createGlobalStyle`
   }
 
   body {
-    font: 400 18px 'Roboto', sans-serif;
+    font: ${(props) => props.theme.fonts.body};
     line-height: 27px;
     color: ${(props) => props.theme.colors.grey};
   }

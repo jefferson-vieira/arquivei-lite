@@ -8,4 +8,8 @@ export default {
     extraDark: '#091223',
     grey: 'grey',
   },
+  fonts: {
+    body: '400 18px Roboto, sans-serif',
+    title: '500 22px Rubik, sans-serif',
+  },
 };
