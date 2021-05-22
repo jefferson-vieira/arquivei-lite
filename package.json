@@ -18,6 +18,8 @@
   },
   "dependencies": {
     "@styled-icons/fa-solid": "^10.32.0",
+    "@styled-icons/fluentui-system-filled": "^10.33.0",
+    "@styled-icons/styled-icon": "^10.6.3",
     "next": "latest",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

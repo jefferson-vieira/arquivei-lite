@@ -11,7 +11,7 @@ export default createGlobalStyle`
     min-height: 100vh;
   }
 
-  body {
+  body, input {
     font: ${(props) => props.theme.fonts.body};
     line-height: 27px;
     color: ${(props) => props.theme.colors.grey};

@@ -11,5 +11,7 @@ export default {
   fonts: {
     body: '400 18px Roboto, sans-serif',
     title: '500 22px Rubik, sans-serif',
+    hero: '700 42px Rubik, sans-serif',
+    cta: '700 14px Rubik, sans-serif',
   },
 };

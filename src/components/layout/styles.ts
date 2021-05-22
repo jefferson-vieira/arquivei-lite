@@ -4,12 +4,19 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 1rem;
+  min-height: 100vh;
 `;
 
 export const Header = styled.header`
-  font: ${(props) => props.theme.fonts.title};
+  font: ${(props) => props.theme.fonts.hero};
   color: ${(props) => props.theme.colors.primary};
+  text-align: center;
+`;
+
+export const Main = styled.main`
+  margin: 3rem 0;
 `;
 
 export const Footer = styled.footer`
@@ -17,8 +24,6 @@ export const Footer = styled.footer`
 `;
 
 export const HeartIcon = styled(Heart)`
-  width: 1.25rem;
-  height: 1.25rem;
   color: red;
 `;
 
