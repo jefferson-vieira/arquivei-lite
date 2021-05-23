@@ -5,8 +5,11 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
   padding: 1rem;
+  margin: auto;
   min-height: 100vh;
+  max-width: 1200px;
 `;
 
 export const Header = styled.header`
@@ -17,6 +20,7 @@ export const Header = styled.header`
 
 export const Main = styled.main`
   margin: 3rem 0;
+  width: 100%;
 `;
 
 export const Footer = styled.footer`

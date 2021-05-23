@@ -7,7 +7,7 @@ type ButtonProps = {
   appearance: keyof typeof theme.colors;
 } & React.ComponentPropsWithoutRef<'button'>;
 
-const Btn = styled.button<Pick<ButtonProps, 'appearance'>>`
+const StyledButton = styled.button<Pick<ButtonProps, 'appearance'>>`
   font: ${(props) => props.theme.fonts.cta};
   color: white;
   text-transform: uppercase;
@@ -17,6 +17,7 @@ const Btn = styled.button<Pick<ButtonProps, 'appearance'>>`
   border-radius: 20px;
 
   height: 40px;
+  width: 100%;
   padding: 0 32px;
 
   cursor: pointer;
@@ -29,7 +30,7 @@ const Btn = styled.button<Pick<ButtonProps, 'appearance'>>`
 
 const Button: React.FC<ButtonProps> = ({ children, ...props }) => {
   // eslint-disable-next-line react/jsx-props-no-spreading
-  return <Btn {...props}>{children}</Btn>;
+  return <StyledButton {...props}>{children}</StyledButton>;
 };
 
 export default Button;

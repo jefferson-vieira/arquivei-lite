@@ -1,10 +1,12 @@
 import { DocumentSearch } from '@styled-icons/fluentui-system-filled';
 
+import Header from '../components/header';
 import Layout from '../components/layout';
 import Product from '../components/product';
 
 const Index: React.FC = () => (
   <Layout>
+    <Header>Produtos</Header>
     <Product
       title="Consultas"
       price={0.24}
