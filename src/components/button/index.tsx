@@ -29,7 +29,6 @@ const StyledButton = styled.button<Pick<ButtonProps, 'appearance'>>`
 `;
 
 const Button: React.FC<ButtonProps> = ({ children, ...props }) => {
-  // eslint-disable-next-line react/jsx-props-no-spreading
   return <StyledButton {...props}>{children}</StyledButton>;
 };
 

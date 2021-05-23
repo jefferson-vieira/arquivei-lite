@@ -10,7 +10,6 @@ type Table = {
   TD: typeof TD;
 } & React.FC;
 
-// eslint-disable-next-line react/jsx-props-no-spreading
 const Table: Table = (props) => <StyledTable {...props} />;
 Table.THead = THead;
 Table.TBody = TBody;
