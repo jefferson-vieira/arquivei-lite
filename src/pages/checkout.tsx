@@ -1,4 +1,4 @@
-import React, { useReducer, useRef } from 'react';
+import React, { useReducer } from 'react';
 import Cards, { Focused } from 'react-credit-cards';
 
 import Button from '../components/button';

@@ -1,6 +1,9 @@
 import { StyledIcon } from '@styled-icons/styled-icon';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
+import Product from '../../models/product';
+import { useCart } from '../../store/cart-context';
 import toCurrency from '../../utils/formatters/currency';
 import Button from '../button';
 import {
@@ -15,29 +18,43 @@ import {
 } from './style';
 
 type ProductProps = {
-  title: string;
-  price: number;
-  promotions?: [number, number][];
   icon: StyledIcon;
-};
+} & Omit<Product, 'quantity'>;
 
-const Product: React.FC<ProductProps> = ({
-  title,
+const ProductHero: React.FC<ProductProps> = ({
+  name,
   price,
   promotions,
   icon,
 }) => {
+  const router = useRouter();
+
+  const { setProducts } = useCart();
+
   const [qty, setQty] = useState(1);
 
   const handleChangeQty = (newQty: number) => {
     setQty(newQty > 0 ? newQty : 1);
   };
 
+  const handleBuy = () => {
+    setProducts([
+      {
+        name,
+        price,
+        promotions,
+        quantity: qty,
+      },
+    ]);
+
+    router.push('/summary');
+  };
+
   const IconComponent = Icon(icon);
 
   return (
     <Container>
-      <Title>{title}</Title>
+      <Title>{name}</Title>
       <IconComponent size="8rem" />
       <span>
         <Price>{toCurrency(price)}</Price> por consulta
@@ -45,15 +62,21 @@ const Product: React.FC<ProductProps> = ({
       {promotions && (
         <Promotion>
           Promoção:
-          {promotions.map(([newPrice, quantity], index) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <React.Fragment key={index}>
-              <br />
-              <span>
-                {toCurrency(newPrice)} nas primeiras {quantity} uni.
-              </span>
-            </React.Fragment>
-          ))}
+          {promotions.map(
+            (
+              { price: promotionalPrice, quantity: promotionalQuantity },
+              index
+            ) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <React.Fragment key={index}>
+                <br />
+                <span>
+                  {toCurrency(promotionalPrice)} nas primeiras{' '}
+                  {promotionalQuantity} uni.
+                </span>
+              </React.Fragment>
+            )
+          )}
         </Promotion>
       )}
       <Purchase>
@@ -78,11 +101,15 @@ const Product: React.FC<ProductProps> = ({
           +
         </Button>
       </Purchase>
-      <BuyButton appearance="primary" title="Comprar consultas">
+      <BuyButton
+        appearance="primary"
+        title="Comprar consultas"
+        onClick={handleBuy}
+      >
         Comprar
       </BuyButton>
     </Container>
   );
 };
 
-export default Product;
+export default ProductHero;

@@ -2,17 +2,17 @@ import { DocumentSearch } from '@styled-icons/fluentui-system-filled';
 
 import Header from '../components/header';
 import Layout from '../components/layout';
-import Product from '../components/product';
+import ProductHero from '../components/product';
 
 const Index: React.FC = () => (
   <Layout>
     <Header>Produtos</Header>
-    <Product
-      title="Consultas"
+    <ProductHero
+      name="Consultas"
       price={0.24}
       promotions={[
-        [0.09, 1000],
-        [0.16, 2000],
+        { price: 0.09, quantity: 1000 },
+        { price: 0.16, quantity: 2000 },
       ]}
       icon={DocumentSearch}
     />

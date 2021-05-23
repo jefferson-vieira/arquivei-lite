@@ -1,5 +1,12 @@
 import styled from 'styled-components';
 
+export const Container = styled.div`
+  margin-bottom: 1rem;
+
+  width: 100%;
+  overflow: auto;
+`;
+
 export const Table = styled.table`
   border-collapse: collapse;
 
@@ -12,6 +19,8 @@ export const Table = styled.table`
 export const THead = styled.thead``;
 
 export const TBody = styled.tbody``;
+
+export const TFoot = styled.tfoot``;
 
 export const TR = styled.tr``;
 
