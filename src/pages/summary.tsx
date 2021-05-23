@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import Button from '../components/button';
 import Header from '../components/header';
@@ -9,7 +10,13 @@ import { useCart } from '../store/cart-context';
 import toCurrency from '../utils/formatters/currency';
 
 const Summary: React.FC = () => {
+  const router = useRouter();
+
   const { products } = useCart();
+
+  const handleClick = () => {
+    router.push('/checkout');
+  };
 
   return (
     <Layout>
@@ -40,15 +47,14 @@ const Summary: React.FC = () => {
               </Table.TR>
             </Table.TFoot>
           </Table>
-          <Button appearance="primary">Checkout</Button>
+          <Button appearance="primary" onClick={handleClick}>
+            Checkout
+          </Button>
         </>
       ) : (
         <>
           Seu carrinho está vazio. Veja nossas ofertas clicando{' '}
-          <Link href="/">
-            <a>aqui</a>
-          </Link>
-          .
+          <Link href="/">aqui</Link>.
         </>
       )}
     </Layout>

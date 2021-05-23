@@ -16,4 +16,11 @@ export default createGlobalStyle`
     line-height: 27px;
     color: ${(props) => props.theme.colors.grey};
   }
+
+  a {
+    font-size: 16px;
+    text-decoration: underline;
+
+    color: ${(props) => props.theme.colors.primary};
+  }
 `;

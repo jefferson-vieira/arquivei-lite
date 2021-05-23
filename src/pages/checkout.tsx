@@ -1,10 +1,16 @@
-import React, { useReducer } from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect, useReducer } from 'react';
 import Cards, { Focused } from 'react-credit-cards';
+import { ThemeProvider } from 'styled-components';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 import Button from '../components/button';
 import Header from '../components/header';
 import Input from '../components/input';
 import Layout from '../components/layout';
+import { useCart } from '../store/cart-context';
+import { theme } from '../styles';
 
 type State = {
   cnpj: string;
@@ -28,6 +34,16 @@ function reducer(state: State, action: Action) {
 }
 
 const Checkout: React.FC = () => {
+  const router = useRouter();
+
+  const { products } = useCart();
+
+  useEffect(() => {
+    if (!products.length) {
+      router.push('/');
+    }
+  }, []);
+
   const [state, dispatch] = useReducer(reducer, {
     cnpj: '',
     cvc: '',
@@ -59,6 +75,29 @@ const Checkout: React.FC = () => {
     const data = Object.fromEntries(new FormData(form).entries());
 
     console.log(data);
+
+    withReactContent(Swal).fire({
+      title: 'Obrigado!',
+      text: 'Sua compra  foi concluída com sucesso.',
+      icon: 'success',
+      iconColor: theme.colors.success,
+      showConfirmButton: false,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      footer: (
+        <ThemeProvider theme={theme}>
+          <Button
+            appearance="success"
+            onClick={() => {
+              router.push('/');
+              Swal.close();
+            }}
+          >
+            Voltar para a loja
+          </Button>
+        </ThemeProvider>
+      ),
+    });
 
     form.reset();
   };
