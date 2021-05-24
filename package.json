@@ -20,7 +20,7 @@
     "@styled-icons/fa-solid": "^10.32.0",
     "@styled-icons/fluentui-system-filled": "^10.33.0",
     "@styled-icons/styled-icon": "^10.6.3",
-    "next": "latest",
+    "next": "^10.2.2",
     "react": "^17.0.1",
     "react-credit-cards": "^0.8.3",
     "react-dom": "^17.0.1",
