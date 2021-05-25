@@ -14,4 +14,12 @@ export default {
     hero: '700 42px Rubik, sans-serif',
     cta: '700 14px Rubik, sans-serif',
   },
+  breakpoints: {
+    mobile: {
+      width: '320px',
+    },
+    desktop: {
+      width: '1200px',
+    },
+  },
 };

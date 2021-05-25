@@ -7,13 +7,15 @@ export default createGlobalStyle`
     box-sizing: border-box;
   }
 
-  html, body {
-    min-height: 100vh;
+  html, body, #__next {
+    height: 100%;
+    min-width: ${(props) => props.theme.breakpoints.mobile.width};
   }
 
   body, input {
     font: ${(props) => props.theme.fonts.body};
     line-height: 27px;
+
     color: ${(props) => props.theme.colors.grey};
   }
 

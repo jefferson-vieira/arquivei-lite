@@ -2,37 +2,35 @@ import { Heart } from '@styled-icons/fa-solid';
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+
+  min-height: 100%;
+  max-width: ${(props) => props.theme.breakpoints.desktop.width};
 
   padding: 1rem;
   margin: auto;
-  min-height: 100vh;
-  max-width: 1200px;
 `;
 
 export const Header = styled.header`
   font: ${(props) => props.theme.fonts.hero};
-  color: ${(props) => props.theme.colors.primary};
   text-align: center;
+
+  color: ${(props) => props.theme.colors.primary};
 `;
 
 export const Main = styled.main`
-  margin: 3rem 0;
   width: 100%;
+  margin: 3rem 0;
 `;
 
 export const Footer = styled.footer`
   text-align: center;
+
+  overflow: auto;
+  white-space: nowrap;
 `;
 
 export const HeartIcon = styled(Heart)`
   color: red;
-`;
-
-export const Anchor = styled.a`
-  font-size: 16px;
-  text-decoration: underline;
-  color: ${(props) => props.theme.colors.primary};
 `;

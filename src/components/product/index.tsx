@@ -12,10 +12,12 @@ import {
   Icon,
   Price,
   Promotion,
-  QtyInput,
+  QuantityInput,
   Purchase,
   BuyButton,
 } from './style';
+
+const DECIMAL_RADIX = 10;
 
 type ProductProps = {
   icon: StyledIcon;
@@ -31,10 +33,10 @@ const ProductHero: React.FC<ProductProps> = ({
 
   const { setProducts } = useCart();
 
-  const [qty, setQty] = useState(1);
+  const [quantity, setQuantity] = useState(1);
 
-  const handleChangeQty = (newQty: number) => {
-    setQty(newQty > 0 ? newQty : 1);
+  const handleChangeQty = (newQuantity: number) => {
+    setQuantity(newQuantity > 0 ? newQuantity : 1);
   };
 
   const handleBuy = () => {
@@ -43,19 +45,17 @@ const ProductHero: React.FC<ProductProps> = ({
         name,
         price,
         promotions,
-        quantity: qty,
+        quantity,
       },
     ]);
 
     router.push('/summary');
   };
 
-  const IconComponent = Icon(icon);
-
   return (
     <Container>
       <Title>{name}</Title>
-      <IconComponent size="8rem" />
+      <Icon as={icon} size="8rem" />
       <span>
         <Price>{toCurrency(price)}</Price> por consulta
       </span>
@@ -83,20 +83,22 @@ const ProductHero: React.FC<ProductProps> = ({
         <Button
           appearance="primary"
           title="Comprar menos"
-          onClick={() => setQty(qty - 1)}
-          disabled={qty < 2}
+          onClick={() => setQuantity(quantity - 1)}
+          disabled={quantity < 2}
         >
           -
         </Button>
-        <QtyInput
+        <QuantityInput
           type="number"
-          value={qty}
-          onChange={(e) => handleChangeQty(parseInt(e.target.value, 10))}
+          value={quantity}
+          onChange={(e) =>
+            handleChangeQty(parseInt(e.target.value, DECIMAL_RADIX))
+          }
         />
         <Button
           appearance="primary"
           title="Comprar mais"
-          onClick={() => setQty(qty + 1)}
+          onClick={() => setQuantity(quantity + 1)}
         >
           +
         </Button>
