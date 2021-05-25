@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useReducer } from 'react';
 import Cards, { Focused } from 'react-credit-cards';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
+import BackLink from '../components/back-link';
 import Button from '../components/button';
 import Header from '../components/header';
 import Input from '../components/input';
@@ -25,6 +26,10 @@ type Action = {
   type: keyof State;
   payload: string;
 };
+
+const CardContainer = styled.div`
+  margin-bottom: 1rem;
+`;
 
 function reducer(state: State, action: Action) {
   return {
@@ -74,6 +79,7 @@ const Checkout: React.FC = () => {
 
     const data = Object.fromEntries(new FormData(form).entries());
 
+    // eslint-disable-next-line no-console
     console.log(data);
 
     withReactContent(Swal).fire({
@@ -105,13 +111,15 @@ const Checkout: React.FC = () => {
   return (
     <Layout>
       <Header>Checkout</Header>
-      <Cards
-        cvc={state.cvc}
-        expiry={state.expiry}
-        focused={state.focus}
-        name={state.name}
-        number={state.number}
-      />
+      <CardContainer>
+        <Cards
+          cvc={state.cvc}
+          expiry={state.expiry}
+          focused={state.focus}
+          name={state.name}
+          number={state.number}
+        />
+      </CardContainer>
       <form onSubmit={handleSubmit}>
         <Input
           type="tel"
@@ -166,9 +174,12 @@ const Checkout: React.FC = () => {
           required
           pattern="\d{3,4}"
         />
-        <Button appearance="primary" type="submit">
-          Pagar
-        </Button>
+        <Button.Grouper>
+          <BackLink />
+          <Button appearance="primary" type="submit">
+            Pagar
+          </Button>
+        </Button.Grouper>
       </form>
     </Layout>
   );

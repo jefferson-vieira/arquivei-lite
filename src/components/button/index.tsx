@@ -1,19 +1,31 @@
+import React from 'react';
 import styled from 'styled-components';
 
 import { theme } from '../../styles';
 
+type StyledProps = {
+  $alt?: boolean;
+  appearance: keyof typeof theme.colors;
+};
+
 type ButtonProps = {
   children: string;
-  appearance: keyof typeof theme.colors;
-} & React.ComponentPropsWithoutRef<'button'>;
+} & React.ComponentPropsWithoutRef<'button'> &
+  StyledProps;
 
-const StyledButton = styled.button<Pick<ButtonProps, 'appearance'>>`
+type CompoundProps = {
+  Grouper: React.ComponentType;
+} & React.FC<ButtonProps>;
+
+const StyledButton = styled.button<StyledProps>`
   font: ${(props) => props.theme.fonts.cta};
-  color: white;
   text-transform: uppercase;
 
-  background: ${(props) => props.theme.colors[props.appearance]};
-  border: ${(props) => props.theme.colors[props.appearance]};
+  color: ${(props) =>
+    props.$alt ? props.theme.colors[props.appearance] : '#fff'};
+  background: ${(props) =>
+    props.$alt ? '#fff' : props.theme.colors[props.appearance]};
+  border: 2px solid ${(props) => props.theme.colors[props.appearance]};
   border-radius: 20px;
 
   height: 40px;
@@ -24,12 +36,23 @@ const StyledButton = styled.button<Pick<ButtonProps, 'appearance'>>`
 
   &:disabled {
     background: ${(props) => props.theme.colors.grey};
-    border: ${(props) => props.theme.colors.grey};
+    border: 2px solid ${(props) => props.theme.colors.grey};
   }
 `;
 
-const Button: React.FC<ButtonProps> = ({ children, ...props }) => {
+const Grouper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(
+    ${(props) => React.Children.count(props.children)},
+    1fr
+  );
+  grid-column-gap: 1rem;
+`;
+
+const Button: CompoundProps = ({ children, ...props }) => {
   return <StyledButton {...props}>{children}</StyledButton>;
 };
+
+Button.Grouper = Grouper;
 
 export default Button;

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+import BackLink from '../components/back-link';
 import Button from '../components/button';
 import Header from '../components/header';
 import Layout from '../components/layout';
@@ -33,7 +34,7 @@ const Summary: React.FC = () => {
             </Table.THead>
             <Table.TBody>
               {products.map((product) => (
-                <Table.TR>
+                <Table.TR key={product.name}>
                   <Table.TD>{product.quantity}</Table.TD>
                   <Table.TD>{product.name}</Table.TD>
                   <Table.TD>{toCurrency(product.price)}</Table.TD>
@@ -47,9 +48,12 @@ const Summary: React.FC = () => {
               </Table.TR>
             </Table.TFoot>
           </Table>
-          <Button appearance="primary" onClick={handleClick}>
-            Checkout
-          </Button>
+          <Button.Grouper>
+            <BackLink />
+            <Button appearance="primary" onClick={handleClick}>
+              Checkout
+            </Button>
+          </Button.Grouper>
         </>
       ) : (
         <>
