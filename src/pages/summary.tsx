@@ -6,7 +6,7 @@ import Button from '../components/button';
 import Header from '../components/header';
 import Layout from '../components/layout';
 import Table from '../components/table';
-import summarizeCart from '../helpers/summarizeCart';
+import summarizeCart, { applyPromotions } from '../helpers/summarizeCart';
 import { useCart } from '../store/cart-context';
 import toCurrency from '../utils/formatters/currency';
 
@@ -15,7 +15,7 @@ const Summary: React.FC = () => {
 
   const { products } = useCart();
 
-  const handleClick = () => {
+  const goToCheckout = () => {
     router.push('/checkout');
   };
 
@@ -33,11 +33,21 @@ const Summary: React.FC = () => {
               </Table.TR>
             </Table.THead>
             <Table.TBody>
-              {products.map((product) => (
-                <Table.TR key={product.name}>
+              {products.map((product, index) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <Table.TR key={index}>
                   <Table.TD>{product.quantity}</Table.TD>
                   <Table.TD>{product.name}</Table.TD>
-                  <Table.TD>{toCurrency(product.price)}</Table.TD>
+                  <Table.TD>
+                    {product.promotions.length
+                      ? [...applyPromotions(product)].map((offer) => (
+                          <>
+                            {`${toCurrency(offer.price)} (x${offer.quantity})`}
+                            <br />
+                          </>
+                        ))
+                      : toCurrency(product.price)}
+                  </Table.TD>
                 </Table.TR>
               ))}
             </Table.TBody>
@@ -50,7 +60,7 @@ const Summary: React.FC = () => {
           </Table>
           <Button.Grouper>
             <BackLink />
-            <Button appearance="primary" onClick={handleClick}>
+            <Button appearance="primary" onClick={goToCheckout}>
               Checkout
             </Button>
           </Button.Grouper>

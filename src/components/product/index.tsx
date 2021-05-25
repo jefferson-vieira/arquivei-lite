@@ -19,15 +19,17 @@ import {
 
 const DECIMAL_RADIX = 10;
 
-type ProductProps = {
-  icon: StyledIcon;
-} & Omit<Product, 'quantity'>;
+type ProductProps = Omit<Product, 'quantity'>;
 
-const ProductHero: React.FC<ProductProps> = ({
+type ProductHeroProps = {
+  icon: StyledIcon;
+} & ProductProps;
+
+const ProductHero: React.FC<ProductHeroProps> = ({
+  icon,
   name,
   price,
   promotions,
-  icon,
 }) => {
   const router = useRouter();
 
@@ -35,11 +37,11 @@ const ProductHero: React.FC<ProductProps> = ({
 
   const [quantity, setQuantity] = useState(1);
 
-  const handleChangeQty = (newQuantity: number) => {
+  const handleChangeQuantity = (newQuantity: number) => {
     setQuantity(newQuantity > 0 ? newQuantity : 1);
   };
 
-  const handleBuy = () => {
+  const handleClickBuy = () => {
     setProducts([
       {
         name,
@@ -62,21 +64,17 @@ const ProductHero: React.FC<ProductProps> = ({
       {promotions && (
         <Promotion>
           Promoção:
-          {promotions.map(
-            (
-              { price: promotionalPrice, quantity: promotionalQuantity },
-              index
-            ) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <React.Fragment key={index}>
-                <br />
-                <span>
-                  {toCurrency(promotionalPrice)} nas primeiras{' '}
-                  {promotionalQuantity} uni.
-                </span>
-              </React.Fragment>
-            )
-          )}
+          {promotions.map((promotion, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <React.Fragment key={index}>
+              <br />
+              <span>
+                {`${toCurrency(promotion.price)} nas primeiras ${
+                  promotion.quantity
+                } uni.`}
+              </span>
+            </React.Fragment>
+          ))}
         </Promotion>
       )}
       <Purchase>
@@ -92,7 +90,7 @@ const ProductHero: React.FC<ProductProps> = ({
           type="number"
           value={quantity}
           onChange={(e) =>
-            handleChangeQty(parseInt(e.target.value, DECIMAL_RADIX))
+            handleChangeQuantity(parseInt(e.target.value, DECIMAL_RADIX))
           }
         />
         <Button
@@ -106,7 +104,7 @@ const ProductHero: React.FC<ProductProps> = ({
       <BuyButton
         appearance="primary"
         title="Comprar consultas"
-        onClick={handleBuy}
+        onClick={handleClickBuy}
       >
         Comprar
       </BuyButton>

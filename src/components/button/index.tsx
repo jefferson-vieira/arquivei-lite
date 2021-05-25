@@ -3,21 +3,12 @@ import styled from 'styled-components';
 
 import { theme } from '../../styles';
 
-type StyledProps = {
+type StyleProps = {
   $alt?: boolean;
   appearance: keyof typeof theme.colors;
 };
 
-type ButtonProps = {
-  children: string;
-} & React.ComponentPropsWithoutRef<'button'> &
-  StyledProps;
-
-type CompoundProps = {
-  Grouper: React.ComponentType;
-} & React.FC<ButtonProps>;
-
-const StyledButton = styled.button<StyledProps>`
+const StyledButton = styled.button<StyleProps>`
   font: ${(props) => props.theme.fonts.cta};
   text-transform: uppercase;
 
@@ -49,7 +40,15 @@ const Grouper = styled.div`
   grid-column-gap: 1rem;
 `;
 
-const Button: CompoundProps = ({ children, ...props }) => {
+type ButtonProps = React.ComponentPropsWithoutRef<'button'> & StyleProps;
+
+type CompoundProps = {
+  Grouper: typeof Grouper;
+};
+
+type ButtonComponent = React.FC<ButtonProps> & CompoundProps;
+
+const Button: ButtonComponent = ({ children, ...props }) => {
   return <StyledButton {...props}>{children}</StyledButton>;
 };
 

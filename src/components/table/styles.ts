@@ -30,6 +30,8 @@ export const TH = styled.th`
 `;
 
 export const TD = styled.td`
+  vertical-align: top;
+
   padding: 0.75rem;
   border-top: 1px solid #000;
 `;

@@ -11,16 +11,18 @@ import {
   TD,
 } from './styles';
 
-type Table = {
+type CompoundProps = {
   THead: typeof THead;
   TBody: typeof TBody;
   TFoot: typeof TFoot;
   TH: typeof TH;
   TR: typeof TR;
   TD: typeof TD;
-} & React.FC;
+};
 
-const Table: Table = (props) => (
+type TableComponent = React.FC & CompoundProps;
+
+const Table: TableComponent = (props) => (
   <Container>
     <StyledTable {...props} />
   </Container>
