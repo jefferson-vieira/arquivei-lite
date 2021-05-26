@@ -7,14 +7,12 @@ type Props = {
   mask?: InputMaskProps['mask'];
 } & Omit<InputMaskProps, 'mask'>;
 
-const InputMasked = InputStyled.withComponent(InputMask);
-
 const Input: React.FC<Props> = ({ label, ...props }) => {
   return (
     <Label htmlFor={props.id}>
       {label}
       {props.mask ? (
-        <InputMasked {...props} mask={props.mask} />
+        <InputStyled as={InputMask} {...props} mask={props.mask} />
       ) : (
         <InputStyled {...props} />
       )}

@@ -65,7 +65,6 @@ const ProductHero: React.FC<ProductHeroProps> = ({
         <Promotion>
           Promoção:
           {promotions.map((promotion, index) => (
-            // eslint-disable-next-line react/no-array-index-key
             <React.Fragment key={index}>
               <br />
               <span>

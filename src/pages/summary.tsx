@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import React from 'react';
 
 import BackLink from '../components/back-link';
 import Button from '../components/button';
@@ -33,18 +34,17 @@ const Summary: React.FC = () => {
               </Table.TR>
             </Table.THead>
             <Table.TBody>
-              {products.map((product, index) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <Table.TR key={index}>
+              {products.map((product, i) => (
+                <Table.TR key={i}>
                   <Table.TD>{product.quantity}</Table.TD>
                   <Table.TD>{product.name}</Table.TD>
                   <Table.TD>
                     {product.promotions.length
-                      ? [...applyPromotions(product)].map((offer) => (
-                          <>
+                      ? [...applyPromotions(product)].map((offer, j) => (
+                          <React.Fragment key={j}>
                             {`${toCurrency(offer.price)} (x${offer.quantity})`}
                             <br />
-                          </>
+                          </React.Fragment>
                         ))
                       : toCurrency(product.price)}
                   </Table.TD>

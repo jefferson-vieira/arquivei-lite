@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 
-import Product from '../models/product';
+import Product from '../../models/product';
 
 type Cart = {
   products: Product[];
